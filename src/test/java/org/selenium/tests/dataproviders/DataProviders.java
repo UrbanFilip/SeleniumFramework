@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class DataProviders {
 
-    @DataProvider(name = "getFeaturedProducts", parallel = true)
+    @DataProvider(name = "getFeaturedProducts")
     public static Object[][] getFeaturedProducts() throws IOException {
         Product[] arrayOfProducts = JsonFile.deserializeJson("products.json", Product[].class);
 

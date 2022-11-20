@@ -35,6 +35,6 @@ public class LoginDuringCheckoutTest extends BaseTest {
                 .clickHereToLoginLink().getLogin()
                 .login(user);
 
-        Assert.assertTrue(checkoutPage.getProductName().contains(product.getName()));
+        Assert.assertTrue(checkoutPage.isEmailFilled());
     }
 }

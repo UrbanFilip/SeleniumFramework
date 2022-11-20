@@ -158,12 +158,18 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage selectDirectBankTransfer() {
-        WebElement e = waitForElementToBeClickable(directBankTransferRadioButton);
-        if (!e.isSelected()) {
-            e.click();
+        waitForElementToBeClickable(directBankTransferRadioButton);
+        if (!directBankTransferRadioButton.isSelected()) {
+            directBankTransferRadioButton.click();
         }
 
         return this;
+    }
+
+    public boolean isEmailFilled() {
+        waitForElementToBeVisible(billingEmailField);
+
+        return !"null".equalsIgnoreCase(billingEmailField.getText());
     }
 
     public String getProductName() {

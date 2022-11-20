@@ -14,6 +14,7 @@ public class ChromeDriverManager implements DriverManager {
 
         if (PropertyReader.HEADLESS.getProperty().equalsIgnoreCase("true")) {
             chromeOptions.addArguments("headless");
+            chromeOptions.addArguments("--incognito");
         }
 
         WebDriver driver = new ChromeDriver(chromeOptions);

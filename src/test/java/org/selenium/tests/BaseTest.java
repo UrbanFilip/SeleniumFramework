@@ -53,6 +53,7 @@ public class BaseTest {
             takeScreenshot(destFile);
         }
 
+        getDriver().manage().deleteAllCookies();
         getDriver().quit();
     }
 
