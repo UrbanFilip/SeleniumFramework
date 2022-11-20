@@ -28,7 +28,7 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test
-    public void guestCheckoutUsingDirectBankTransfer() {
+    public void shouldBeAbleToCheckoutAsAGuestUsingDirectBankTransfer() {
         Cookies cartCookies = addProductToCart(product, 1);
         injectCookiesToBrowser(cartCookies);
 
@@ -42,7 +42,7 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test
-    public void loginAndCheckoutUsingDirectBankTransfer() {
+    public void shouldBeABleToLoginAndCheckoutUsingDirectBankTransfer() {
         Cookies signUpCookies = registerNewUserAndGetCookies();
         Cookies cartCookies = addProductToCart(product, 1, signUpCookies);
         injectCookiesToBrowser(cartCookies);

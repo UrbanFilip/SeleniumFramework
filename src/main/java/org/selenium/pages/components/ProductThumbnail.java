@@ -14,16 +14,13 @@ import java.util.Random;
 public class ProductThumbnail extends BasePage {
     private Header header;
     @FindBy(css = "a[title='View cart']")
-    private List<WebElement> listOfViewCartLink;
+    private WebElement viewCartLink;
     @FindBy(css = ".woocommerce-loop-product__title")
     private List<WebElement> productNames;
     @FindBy(css = ".add_to_cart_button")
     private List<WebElement> addToCartButtons;
     @FindBy(css = ".add_to_cart_button.loading")
     private List<WebElement> addToCartLoaders;
-    @FindBy(css = "a[title='View cart']")
-    private WebElement viewCartLink;
-
 
     public ProductThumbnail(WebDriver driver) {
         super(driver);
@@ -44,9 +41,12 @@ public class ProductThumbnail extends BasePage {
         return this;
     }
 
-    public ProductThumbnail addRandomProductToCart() {
+    private ProductThumbnail addRandomProductToCart() {
         int randomProduct = new Random().nextInt(addToCartButtons.size() - 1);
+        int numberOfProductsInCart = header.getNumberOfProductsInCart();
         waitForElementToBeClickable(addToCartButtons.get(randomProduct)).click();
+        wait.until((ExpectedCondition<Boolean>) driver ->
+                header.getNumberOfProductsInCart() > numberOfProductsInCart);
 
         return this;
     }
@@ -56,17 +56,11 @@ public class ProductThumbnail extends BasePage {
         int counter = 0;
         while (counter < numberOfProductsToBeAdded) {
             addRandomProductToCart();
+
             counter++;
         }
 
-        wait.until((ExpectedCondition<Boolean>) driver -> {
-            if (listOfViewCartLink.size() == numberOfProductsToBeAdded) {
-                return true;
-            } else {
-                return false;
-            }
-        });
-
+        waitForOverlay(addToCartLoaders);
         return this;
     }
 
