@@ -2,7 +2,6 @@ package org.selenium.tests;
 
 import io.restassured.http.Cookies;
 
-import org.selenium.base.BaseTest;
 import org.selenium.pages.CheckoutPage;
 import org.selenium.objects.BillingAddress;
 import org.selenium.objects.Product;
@@ -17,35 +16,20 @@ import java.io.IOException;
 public class CheckoutTest extends BaseTest {
     private Product product;
     private CheckoutPage checkoutPage;
-
+    private BillingAddress billingAddress;
     @BeforeMethod
     public void setUp() throws IOException {
         product = new Product(1215);
+        billingAddress = JsonFile.deserializeJson("myBillingAddress.json", BillingAddress.class);
+
 
         checkoutPage = new CheckoutPage(getDriver())
                 .load();
     }
 
     @Test
-    public void guestCheckoutUsingDirectBankTransfer() throws IOException {
-        BillingAddress billingAddress = JsonFile.deserializeJson("myBillingAddress.json", BillingAddress.class);
-        Cookies cookies = addProductToCart(product, 1);
-        injectCookiesToBrowser(cookies);
-
-        checkoutPage
-                .load()
-                .setBillingAddress(billingAddress)
-                .selectDirectBankTransfer()
-                .placeOrder();
-
-        Assert.assertEquals(checkoutPage.getNotice(), "Thank you. Your order has been received.");
-    }
-
-    @Test
-    public void loginAndCheckoutUsingDirectBankTransfer() throws IOException {
-        BillingAddress billingAddress = JsonFile.deserializeJson("myBillingAddress.json", BillingAddress.class);
-        Cookies signUpCookies = registerNewUserAndGetCookies();
-        Cookies cartCookies = addProductToCart(product, 1, signUpCookies);
+    public void guestCheckoutUsingDirectBankTransfer() {
+        Cookies cartCookies = addProductToCart(product, 1);
         injectCookiesToBrowser(cartCookies);
 
         checkoutPage
@@ -58,16 +42,17 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test
-    public void shouldBeAbleToLoginDuringCheckout() {
-        User user = registerNewUser();
-        Cookies cookies = addProductToCart(product, 1);
-        injectCookiesToBrowser(cookies);
+    public void loginAndCheckoutUsingDirectBankTransfer() {
+        Cookies signUpCookies = registerNewUserAndGetCookies();
+        Cookies cartCookies = addProductToCart(product, 1, signUpCookies);
+        injectCookiesToBrowser(cartCookies);
 
         checkoutPage
                 .load()
-                .clickHereToLoginLink().getLogin()
-                .login(user);
+                .setBillingAddress(billingAddress)
+                .selectDirectBankTransfer()
+                .placeOrder();
 
-        Assert.assertTrue(checkoutPage.getProductName().contains(product.getName()));
+        Assert.assertEquals(checkoutPage.getNotice(), "Thank you. Your order has been received.");
     }
 }

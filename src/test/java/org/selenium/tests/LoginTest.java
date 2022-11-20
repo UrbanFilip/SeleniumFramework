@@ -1,7 +1,6 @@
 package org.selenium.tests;
 
 import org.selenium.pages.AccountPage;
-import org.selenium.base.BaseTest;
 import org.selenium.objects.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;

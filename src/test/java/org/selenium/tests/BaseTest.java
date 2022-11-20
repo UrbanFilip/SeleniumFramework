@@ -1,4 +1,4 @@
-package org.selenium.base;
+package org.selenium.tests;
 
 import io.restassured.http.Cookies;
 import org.apache.commons.io.FileUtils;

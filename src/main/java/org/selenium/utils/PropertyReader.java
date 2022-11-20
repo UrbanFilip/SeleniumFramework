@@ -7,7 +7,8 @@ import java.util.Properties;
 public enum PropertyReader {
     BASE_URL(),
     BROWSER(),
-    HEADLESS();
+    HEADLESS(),
+    WAIT_TIMEOUT;
 
     private final Properties properties;
     private String configPath = "./environments/";

@@ -1,6 +1,5 @@
 package org.selenium.tests;
 
-import org.selenium.base.BaseTest;
 import org.selenium.pages.HomePage;
 import org.selenium.pages.StorePage;
 import org.testng.Assert;

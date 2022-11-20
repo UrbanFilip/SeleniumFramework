@@ -1,10 +1,9 @@
 package org.selenium.tests;
 
-import org.selenium.dataproviders.DataProviders;
+import org.selenium.tests.dataproviders.DataProviders;
 import org.selenium.pages.CartPage;
 import org.selenium.pages.HomePage;
 import org.selenium.pages.StorePage;
-import org.selenium.base.BaseTest;
 import org.selenium.objects.Product;
 import org.testng.Assert;
 import org.testng.annotations.Test;

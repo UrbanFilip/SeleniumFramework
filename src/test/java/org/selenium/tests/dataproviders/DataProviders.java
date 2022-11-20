@@ -1,4 +1,4 @@
-package org.selenium.dataproviders;
+package org.selenium.tests.dataproviders;
 
 import org.selenium.objects.Product;
 import org.selenium.utils.JsonFile;
